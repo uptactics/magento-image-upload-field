@@ -11,7 +11,7 @@
                 <item name="config" xsi:type="array">
                     <item name="dataType" xsi:type="string">string</item>
                     <item name="source" xsi:type="string">page</item>
-                    <item name="label" xsi:type="string" translate="true">Banner Image (640px)</item>
+                    <item name="label" xsi:type="string" translate="true">Banner Image</item>
                     <item name="visible" xsi:type="boolean">true</item>
                     <item name="formElement" xsi:type="string">fileUploader</item>
                     <item name="elementTmpl" xsi:type="string">ui/form/element/uploader/uploader</item>
