@@ -1,11 +1,7 @@
-### Magebrew_ImageUploadFormField
+### ImageUploadFormField
 
-This is sample module to demonstrate how to add image upload field to CMS page UI Component Form.
+Derived from original work on module [Magebrew_ImageUploadFormField](https://github.com/magebrew/magento-image-upload-field)
 
-### Installation
+Adds in 3 images to allow for resposive image breakpoint ia a more modern frontend display and multiple image fields in CMS
 
-Clone repository to `app/code/Magebrew/ImageUploadFormField`
-
-### More info
-
-More info can be found in [blog post](https://magebrew.com/blog/add-image-upload-field-to-magento-2-ui-component-form)
+Template is Hyva compatible
