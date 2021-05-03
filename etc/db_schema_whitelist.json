@@ -1,7 +1,9 @@
 {
     "cms_page": {
         "column": {
-            "banner_image": true
+            "banner_image": true,
+            "banner_image_tablet": true,
+            "banner_image_mobile": true
         }
     }
 }

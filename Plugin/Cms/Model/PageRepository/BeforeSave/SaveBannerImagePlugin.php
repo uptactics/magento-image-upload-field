@@ -55,25 +55,25 @@ class SaveBannerImagePlugin
         PageInterface $page
     ): array {
         $data = $page->getData();
-        $key = 'banner_image';
-
-        if (isset($data[$key]) && is_array($data[$key])) {
-            if (!empty($data[$key]['delete'])) {
-                $data[$key] = null;
-            } else {
-                if (isset($data[$key][0]['name']) && isset($data[$key][0]['tmp_name'])) {
-                    $image = $data[$key][0]['name'];
-
-                    $image = $this->uploader->moveFileFromTmp($image);
-                    $data[$key] = $image;
+        foreach(['banner_image', 'banner_image_tablet', 'banner_image_mobile'] as $key) {
+            if (isset($data[$key]) && is_array($data[$key])) {
+                if (!empty($data[$key]['delete'])) {
+                    $data[$key] = null;
                 } else {
-                    if (isset($data[$key][0]['url'])) {
-                        $data[$key] = basename($data[$key][0]['url']);
+                    if (isset($data[$key][0]['name']) && isset($data[$key][0]['tmp_name'])) {
+                        $image = $data[$key][0]['name'];
+
+                        $image = $this->uploader->moveFileFromTmp($image);
+                        $data[$key] = $image;
+                    } else {
+                        if (isset($data[$key][0]['url'])) {
+                            $data[$key] = basename($data[$key][0]['url']);
+                        }
                     }
                 }
+            } else {
+                $data[$key] = null;
             }
-        } else {
-            $data[$key] = null;
         }
         $page->setData($data);
         return [$page];

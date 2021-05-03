@@ -42,17 +42,20 @@ class ModifyBannerDataPlugin
     public function afterGetData(
         DataProvider $subject,
         $loadedData
-    ) {
+    )
+    {
         /** @var array $loadedData */
         if (is_array($loadedData) && count($loadedData) > 0) {
             foreach ($loadedData as $key => $item) {
-                if (isset($item['banner_image']) && $item['banner_image']) {
-                    $imageArr = [];
-                    $imageArr[0]['name'] = 'Image';
-                    $imageArr[0]['url'] = $this->storeManager->getStore()
-                            ->getBaseUrl(UrlInterface::URL_TYPE_MEDIA) .
-                        BannerUploader::IMAGE_PATH . DIRECTORY_SEPARATOR . $item['banner_image'];
-                    $loadedData[$key]['banner_image'] = $imageArr;
+                foreach (['banner_image', 'banner_image_tablet', 'banner_image_mobile'] as $imageType) {
+                    if (isset($item[$imageType]) && $item[$imageType]) {
+                        $imageArr = [];
+                        $imageArr[0]['name'] = 'Image';
+                        $imageArr[0]['url'] = $this->storeManager->getStore()
+                                ->getBaseUrl(UrlInterface::URL_TYPE_MEDIA) .
+                            BannerUploader::IMAGE_PATH . DIRECTORY_SEPARATOR . $item[$imageType];
+                        $loadedData[$key][$imageType] = $imageArr;
+                    }
                 }
             }
         }

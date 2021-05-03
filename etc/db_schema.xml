@@ -7,5 +7,7 @@
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
     <table name="cms_page" resource="default" engine="innodb" comment="CMS Page Table">
         <column xsi:type="varchar" name="banner_image" nullable="true" length="255" comment="Banner Image"/>
+        <column xsi:type="varchar" name="banner_image_tablet" nullable="true" length="255" comment="Banner Image Tablet"/>
+        <column xsi:type="varchar" name="banner_image_mobile" nullable="true" length="255" comment="Banner Image Mobile"/>
     </table>
 </schema>

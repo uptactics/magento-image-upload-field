@@ -4,8 +4,29 @@
 $viewModel = $block->getData('viewModel');
 
 $bannerImageUrl = $viewModel->getBannerImageUrl();
+$bannerImageTablet = $viewModel->getBannerImageTabletUrl();
+$bannerImageMobile = $viewModel->getBannerImageMobileUrl();
 ?>
 
 <?php if ($bannerImageUrl): ?>
-    <div class="container cms-banner"><img src="<?php echo $bannerImageUrl ?>"/></div>
+    <picture>
+        <source class="h-full w-full object-cover"
+                srcset="<?= (string)$bannerImageMobile ?>"
+                media="(max-width: 375px)"
+        >
+        <source class="h-full w-full object-cover"
+                srcset="<?= (string)$bannerImageTablet ?>"
+                media="(max-width: 768px)"
+        >
+        <source class="h-full w-full object-cover"
+                srcset="<?= (string)$bannerImageUrl ?>"
+                media="(min-width: 768px)"
+        >
+        <img class="h-full w-full object-cover"
+             src="<?= (string)$bannerImageUrl ?>"
+             alt="PVC Pipes, Valves, Fittings and More!"
+             loading="lazy"
+        >
+    </picture>
+
 <?php endif; ?>

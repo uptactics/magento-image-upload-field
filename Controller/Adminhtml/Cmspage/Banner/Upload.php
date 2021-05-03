@@ -38,7 +38,8 @@ class Upload extends Action
     public function __construct(
         Context $context,
         BannerUploader $uploader
-    ) {
+    )
+    {
         parent::__construct($context);
         $this->uploader = $uploader;
     }
@@ -51,15 +52,17 @@ class Upload extends Action
     public function execute()
     {
         try {
-            $result = $this->uploader->saveFileToTmpDir('banner_image');
-
+            $keys = array_keys($_FILES);
+            $imageType = array_pop($keys);
+            $result = $this->uploader->saveFileToTmpDir($imageType);
             $result['cookie'] = [
-                'name'     => $this->_getSession()->getName(),
-                'value'    => $this->_getSession()->getSessionId(),
+                'name' => $this->_getSession()->getName(),
+                'value' => $this->_getSession()->getSessionId(),
                 'lifetime' => $this->_getSession()->getCookieLifetime(),
-                'path'     => $this->_getSession()->getCookiePath(),
-                'domain'   => $this->_getSession()->getCookieDomain(),
+                'path' => $this->_getSession()->getCookiePath(),
+                'domain' => $this->_getSession()->getCookieDomain(),
             ];
+
         } catch (\Exception $e) {
             $result = ['error' => $e->getMessage(), 'errorcode' => $e->getCode()];
         }

@@ -38,7 +38,8 @@ class BannerViewModel implements ArgumentInterface
     public function __construct(
         Page $page,
         StoreManagerInterface $storeManager
-    ) {
+    )
+    {
         $this->page = $page;
         $this->storeManager = $storeManager;
     }
@@ -49,12 +50,37 @@ class BannerViewModel implements ArgumentInterface
      */
     public function getBannerImageUrl(): ?string
     {
-        if ($this->page->getBannerImage()) {
-            return $this->storeManager->getStore()
-                    ->getBaseUrl(UrlInterface::URL_TYPE_MEDIA) .
-                BannerUploader::IMAGE_PATH . DIRECTORY_SEPARATOR . $this->page->getBannerImage();
-        }
-
-        return '';
+        $image = $this->page->getBannerImage();
+        return $this->getImagePath($image);
     }
+
+    /**
+     * @return string
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function getBannerImageMobileUrl(): ?string
+    {
+        $image = $this->page->getBannerImageMobile();
+        if (empty($image)) return $this->getBannerImageTabletUrl();
+        return $this->getImagePath($image);
+    }
+
+    /**
+     * @return string
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function getBannerImageTabletUrl(): ?string
+    {
+        $image = $this->page->getBannerImageTablet();
+        if (empty($image)) return $this->getBannerImageUrl();
+        return $this->getImagePath($image);
+    }
+
+    public function getImagePath($image) {
+        if(empty($image)) return '';
+        return $this->storeManager->getStore()
+                ->getBaseUrl(UrlInterface::URL_TYPE_MEDIA) .
+            BannerUploader::IMAGE_PATH . DIRECTORY_SEPARATOR . $image;
+    }
+
 }
